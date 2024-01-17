@@ -18,9 +18,13 @@ import Alert from 'editorjs-alert';
 import editorjsColumns from '@calumk/editorjs-columns';
 import editorjsParagraphLinebreakable from '@calumk/editorjs-paragraph-linebreakable';
 import Delimiter from 'aalda-delimiter-plugin';
-import AIText from '@alkhipce/editorjs-aitext';
-import AaaldaMedicine from 'aalda-medicine-plugin'
+// import AIText from '@alkhipce/editorjs-aitext';
+import AaldaMedicine from 'aalda-medicine-plugin'
 import ChangeCase from 'editorjs-change-case';
+// import InlineImage from 'editorjs-inline-image';
+import AaldaTestReport from 'aalda-test-report-plugin';
+import NestedList from '@editorjs/nested-list';
+import Checklist from '@editorjs/checklist'
 
 // Use the imported modules to configure Editor.js with the desired plugins
 /**
@@ -79,6 +83,7 @@ class AaldaEditor {
                     config: {
                         placeholder: 'Enter a header',
                     },
+                    inlineToolbar: true
                 },
                 delimiter: {
                     class: Delimiter,
@@ -94,7 +99,17 @@ class AaldaEditor {
                     tunes: ['alignmentTool'],
                 },
                 alert: Alert,
-
+                checklist: {
+                    class: Checklist,
+                    inlineToolbar: true,
+                },
+                nestedList: {
+                    class: NestedList,
+                    inlineToolbar: true,
+                    config: {
+                        defaultStyle: 'unordered'
+                    },
+                },
                 Color: {
                     class: ColorPlugin,
                     config: {
@@ -147,7 +162,8 @@ class AaldaEditor {
                         underline: true,
                         backgroundColor: '#154360',
                         textColor: '#FDFEFE',
-                    }
+                    },
+                    inlineToolbar: true
                 },
                 columns: {
                     class: editorjsColumns,
@@ -158,9 +174,15 @@ class AaldaEditor {
                 },
 
                 medicine: {
-                    class: AaaldaMedicine,
+                    class: AaldaMedicine,
                     inlineToolbar: true,
                 },
+                // inlineImage:{
+                //     class: InlineImage
+                // },
+                testReport: {
+                    class: AaldaTestReport,
+                }
             },
             data: {},
 
@@ -178,7 +200,9 @@ class AaldaEditor {
              * onChange callback
              */
             onChange: (api, event) => {
-                console.log('Content changed!', api, event)
+                if (this.config?.onChange) {
+                    this.config?.onChange(api, event)
+                }
             },
             tunes: ['textVariant', 'alignmentTool'],
             /**
@@ -227,7 +251,7 @@ class AaldaEditor {
                         "Bold": "大胆な",
                         "Italic": "イタリック",
                         "Alert": 'アラート',
-                        "Key-Vitals": '重要なバイタル'
+                        "Aalda-key-vital-plugin": '重要なバイタル'
                     },
 
                     /**
@@ -254,7 +278,14 @@ class AaldaEditor {
                          */
                         "stub": {
                             'The block can not be displayed correctly.': 'ブロックが正しく表示されません。'
-                        }
+                        },
+
+                        "keyVital": {
+                            "Body Weight":"体重",
+                            "Temprature":"温度",
+                            "Heart Rate":"心拍数",
+                            "Respiratory":"呼吸器系"
+                        },
                     },
 
                     /**
@@ -275,20 +306,26 @@ class AaldaEditor {
                         },
                         "moveDown": {
                             "Move down": "下に移動"
+                        },
+                        "bodyWeight":{
+                            "Body Weight":"下に移動"
                         }
                     },
                 }
             },
         }
         // Usage:
-        
+
         config = this.mergeObjectsByKey(config, this.config, 'tools');
         config = this.mergeObjectsByKey(config, this.config, 'data');
         config = this.mergeObjectsByKey(config, this.config, 'i18n');
+        if(this.config?.locale && this.config?.locale !== 'jp')
+            delete config.i18n;
+
         config = this.mergeObjectsByKey(config, this.config, 'onReady');
         config = this.mergeObjectsByKey(config, this.config, 'onChange');
         config = this.mergeObjectsByKey(config, this.config, 'tunes');
-        config = {...config, holder: this.config?.holder || config.holder, placeholder: this.config?.placeholder || config.placeholder}
+        config = { ...config, holder: this.config?.holder || config.holder, placeholder: this.config?.placeholder || config.placeholder }
         console.log(
             "MAIN CONFIG ", config
         )
