@@ -6,12 +6,12 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/table.umd.js",
-  "module": "./dist/table.mjs",
+  "main": "./dist/editor.umd.js",
+  "module": "./dist/editor.mjs",
   "exports": {
     ".": {
-      "import": "./dist/table.mjs",
-      "require": "./dist/table.umd.js"
+      "import": "./dist/editor.mjs",
+      "require": "./dist/editor.umd.js"
     }
   },
   "scripts": {
