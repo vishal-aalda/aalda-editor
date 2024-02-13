@@ -1,6 +1,6 @@
 // index.js
 
-import EditorJS from '@editorjs/editorjs';
+import EditorJS from 'editor-js';
 import Underline from '@editorjs/underline';
 import Tooltip from 'editorjs-tooltip';
 import Strikethrough from '@sotaproject/strikethrough';
@@ -10,22 +10,25 @@ import AlignmentTuneTool from 'editorjs-text-alignment-blocktune';
 import Header from '@editorjs/header';
 import List from '@editorjs/list';
 import Paragraph from '@editorjs/paragraph';
-import KeyVital from 'aalda-key-vital-plugin';
 import Table from '@editorjs/table';
 import DragDrop from 'editorjs-drag-drop';
 import Undo from 'editorjs-undo';
 import Alert from 'editorjs-alert';
 import editorjsColumns from '@calumk/editorjs-columns';
 import editorjsParagraphLinebreakable from '@calumk/editorjs-paragraph-linebreakable';
-import Delimiter from 'aalda-delimiter-plugin';
 // import AIText from '@alkhipce/editorjs-aitext';
-import AaldaMedicine from 'aalda-medicine-plugin'
 import ChangeCase from 'editorjs-change-case';
 // import InlineImage from 'editorjs-inline-image';
-import AaldaTestReport from 'aalda-test-report-plugin';
 import NestedList from '@editorjs/nested-list';
 import Checklist from '@editorjs/checklist'
-
+//Custom Plugins
+import AaldaMedicine from 'aalda-medicine-plugin'
+import AaldaKeyVital from 'aalda-key-vital-plugin';
+import AaldaTestReport from 'aalda-test-report-plugin';
+import AaldaDelimiter from 'aalda-delimiter-plugin';
+import AaldaObservation from 'aalda-observation-plugin';
+import AaldaVacination from 'aalda-vaccination-plugin';
+import AntiParasitic from 'aalda-anti-parasitic-plugin';
 // Use the imported modules to configure Editor.js with the desired plugins
 /**
  * 
@@ -36,6 +39,7 @@ class AaldaEditor {
     constructor(config = {}) {
         this.config = config;
         this.editor = null;
+        this.config.locale = config?.locale || 'en'
     }
 
 
@@ -68,7 +72,7 @@ class AaldaEditor {
             },
             alert: Alert,
             paragraph: editorjsParagraphLinebreakable,
-            delimiter: Delimiter,
+            delimiter: AaldaDelimiter,
             // table: {
             //     class: Table
             // }
@@ -85,14 +89,7 @@ class AaldaEditor {
                     },
                     inlineToolbar: true
                 },
-                delimiter: {
-                    class: Delimiter,
-                    tunes: ['alignmentTool']
-                },
-                keyVital: {
-                    class: KeyVital,
-                    inlineToolbar: true,
-                },
+               
                 table: {
                     class: Table,
                     inlineToolbar: true,
@@ -135,20 +132,20 @@ class AaldaEditor {
                     config: {
                         toolbar: ['Header']
                     },
-                    tunes: ['alignmentTool'],
+                    // tunes: ['alignmentTool'],
                     inlineToolbar: true
                 },
                 paragraph: {
                     class: Paragraph,
                     inlineToolbar: true,
-                    tunes: ['alignmentTool'],
+                    // tunes: ['alignmentTool'],
                 },
                 alignmentTool: {
                     class: AlignmentTuneTool,
                     config: {
                         default: "left",
                         blocks: {
-                            header: 'center',
+                            header: 'left',
                             list: 'left',
                         }
                     },
@@ -177,11 +174,45 @@ class AaldaEditor {
                     class: AaldaMedicine,
                     inlineToolbar: true,
                 },
-                // inlineImage:{
-                //     class: InlineImage
-                // },
+                delimiter: {
+                    class: AaldaDelimiter,
+                },
+                vitals : {
+                    class: AaldaKeyVital,
+                    inlineToolbar: true,
+                    config: {
+                        locale: this.config?.locale
+                    }
+                },
+                peros: {
+                    class: AaldaObservation,
+                    // inlineToolbar: true,
+                    config: {
+                        locale: this.config?.locale
+                    }
+                },
                 testReport: {
                     class: AaldaTestReport,
+                    config: {
+                        locale: this.config?.locale,
+                        apiUrl: this.config?.api?.test || "http://localhost:8000/api/medicine"
+                    }
+                },
+                vaccination :{
+                    class: AaldaVacination,
+                    inlineToolbar: true,
+                    config: {
+                        locale: this.config?.locale,
+                        apiUrl: this.config?.api?.vaccination || "http://localhost:8000/api/medicine"
+                    }
+                },
+                antiParasitic :{
+                    class: AntiParasitic,
+                    inlineToolbar: true,
+                    config: {
+                        locale: this.config?.locale,
+                        apiUrl: this.config?.api?.medicine || "http://localhost:8000/api/medicine"
+                    }
                 }
             },
             data: {},
@@ -204,7 +235,7 @@ class AaldaEditor {
                     this.config?.onChange(api, event)
                 }
             },
-            tunes: ['textVariant', 'alignmentTool'],
+            // tunes: ['textVariant', 'alignmentTool'],
             /**
              * Internationalzation config
              */
@@ -251,7 +282,9 @@ class AaldaEditor {
                         "Bold": "大胆な",
                         "Italic": "イタリック",
                         "Alert": 'アラート',
-                        "Aalda-key-vital-plugin": '重要なバイタル'
+                        "Peros": "身体検査所見",
+                        "Vaccination": "予防接種",
+                        "Vitals":"バイタル"
                     },
 
                     /**
@@ -280,12 +313,26 @@ class AaldaEditor {
                             'The block can not be displayed correctly.': 'ブロックが正しく表示されません。'
                         },
 
-                        "keyVital": {
+                        "vitals": {
                             "Body Weight":"体重",
                             "Temprature":"温度",
                             "Heart Rate":"心拍数",
-                            "Respiratory":"呼吸器系"
+                            "Respiratory":"呼吸器系",
+                            "Vitals":"バイタル",
+                            "Value":"価値",
+                            "Unit":"ユニット"
                         },
+
+                        "peros":{
+                           "PE/ROS": "観察",
+                           "Observation":"観察",
+                           "Result":"結果",
+                           "Remarks":"備考",
+                        },
+
+                        "vaccination": {
+                            "Vaccination":"予防接種"
+                        }
                     },
 
                     /**
@@ -307,9 +354,6 @@ class AaldaEditor {
                         "moveDown": {
                             "Move down": "下に移動"
                         },
-                        "bodyWeight":{
-                            "Body Weight":"下に移動"
-                        }
                     },
                 }
             },
@@ -326,11 +370,12 @@ class AaldaEditor {
         config = this.mergeObjectsByKey(config, this.config, 'onChange');
         config = this.mergeObjectsByKey(config, this.config, 'tunes');
         config = { ...config, holder: this.config?.holder || config.holder, placeholder: this.config?.placeholder || config.placeholder }
-        console.log(
-            "MAIN CONFIG ", config
-        )
         this.editor = new EditorJS(config);
 
+    }
+
+    getInstance() {
+        return this.editor;
     }
 
     destroy() {
