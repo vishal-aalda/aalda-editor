@@ -1,14 +1,17 @@
 {
   "name": "aalda-editor",
   "version": "1.0.4",
-  "type": "module",
   "description": "Editor for SOP",
-  "main": "./dist/editor.umd.js",
-  "module": "./dist/editor.mjs",
+  "repository": "https://github.com/vishal-aalda/aalda-key-vital-plugin",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/table.umd.js",
+  "module": "./dist/table.mjs",
   "exports": {
     ".": {
-      "import": "./dist/editor.mjs",
-      "require": "./dist/editor.umd.js"
+      "import": "./dist/table.mjs",
+      "require": "./dist/table.umd.js"
     }
   },
   "scripts": {
