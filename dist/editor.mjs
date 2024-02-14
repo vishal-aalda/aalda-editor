@@ -18934,6 +18934,7 @@ class xb {
           placeHolder: this.api.i18n.t("Enter value"),
           name: k + "_value",
           type: "number",
+          disabled: this.readOnly,
           value: ((n = (t = this.data.data) == null ? void 0 : t[k]) == null ? void 0 : n.value) || ""
         });
         this.api.listeners.on(x, "keyup", (L) => {
@@ -18943,7 +18944,8 @@ class xb {
         if (["radio", "select"].includes(y.type)) {
           M = go("select", "", {
             placeHolder: this.api.i18n.t("Select Value"),
-            name: k + "_remarks"
+            name: k + "_remarks",
+            disabled: this.readOnly
           }), this.api.listeners.on(M, "change", (L) => {
             this.setRemarks(k, L.target.value);
           });
@@ -18958,6 +18960,7 @@ class xb {
             value: ((p = (u = (l = this.data) == null ? void 0 : l.data) == null ? void 0 : u[k]) == null ? void 0 : p.remarks) || "",
             placeHolder: this.api.i18n.t("Input value"),
             name: k + "_value",
+            disabled: this.readOnly,
             type: "text"
           }), this.api.listeners.on(M, "keyup", (L) => {
             this.setRemarks(k, L.target.value);
@@ -30760,12 +30763,12 @@ let dw = class {
     const e = [];
     for (let t = 1; t <= this.numberOfRows; t++) {
       const n = this.table.querySelector(`.${et.row}:nth-child(${t})`), r = Array.from(n.querySelectorAll(`.${et.formInput}`));
-      t != 1 && (console.log("GET DATA", n, r), e.push(r.map((a) => {
+      t != 1 && e.push(r.map((a) => {
         if (["text", "select-one", "number"].includes(a == null ? void 0 : a.type))
           return a == null ? void 0 : a.value;
         if ((a == null ? void 0 : a.type) === "checkbox")
           return a == null ? void 0 : a.checked;
-      })));
+      }));
     }
     return e;
   }
