@@ -379,7 +379,7 @@ class AaldaEditor {
     }
 
     destroy() {
-        if (this.editor)
+        if ('destroy' in this.editor)
             this.editor.destroy()
     }
 }
