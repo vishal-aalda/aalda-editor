@@ -29,6 +29,9 @@ import AaldaDelimiter from 'aalda-delimiter-plugin';
 import AaldaObservation from 'aalda-observation-plugin';
 import AaldaVacination from 'aalda-vaccination-plugin';
 import AntiParasitic from 'aalda-anti-parasitic-plugin';
+import Observations from 'aalda-observation-plugin';
+import AaldaInternal from 'aalda-internal-report-plugin';
+import AaldaProcedure from 'aalda-procedure-plugin';
 // Use the imported modules to configure Editor.js with the desired plugins
 /**
  * 
@@ -82,6 +85,60 @@ class AaldaEditor {
             holder: this.config.holder || 'editorjs',
             placeholder: 'いらっしゃいませ。ここから始める...',
             tools: {
+                "Key Vitals" : {
+                    class: AaldaKeyVital,
+                    inlineToolbar: true,
+                    config: {
+                        locale: this.config?.locale
+                    }
+                },
+                "PE/ROS": {
+                    class: AaldaObservation,
+                    // inlineToolbar: true,
+                    config: {
+                        locale: this.config?.locale
+                    }
+                },
+                "Test & Report": {
+                    class: AaldaTestReport,
+                    config: {
+                        locale: this.config?.locale,
+                        apiUrl: this.config?.api?.test || "http://localhost:8000/api/medicine"
+                    }
+                },
+                "Internal Documents": {
+                    class: AaldaInternal,
+                    config: {
+                        locale: this.config?.locale,
+                        apiUrl: this.config?.api?.test || "http://localhost:8000/api/medicine"
+                    }
+                },
+                "Procedures": {
+                    class: AaldaProcedure,
+                    config: {
+                        locale: this.config?.locale,
+                        apiUrl: this.config?.api?.test || "http://localhost:8000/api/medicine"
+                    }
+                },
+                "Vaccination" :{
+                    class: AaldaVacination,
+                    inlineToolbar: true,
+                    config: {
+                        locale: this.config?.locale,
+                        apiUrl: this.config?.api?.vaccination || "http://localhost:8000/api/medicine"
+                    }
+                },
+                "Anti-Parsitic" :{
+                    class: AntiParasitic,
+                    inlineToolbar: true,
+                    config: {
+                        locale: this.config?.locale,
+                        apiUrl: this.config?.api?.medicine || "http://localhost:8000/api/medicine"
+                    }
+                },
+                "Delimiter": {
+                    class: AaldaDelimiter,
+                },
                 header: {
                     class: Header,
                     config: {
@@ -174,46 +231,8 @@ class AaldaEditor {
                 //     class: AaldaMedicine,
                 //     inlineToolbar: true,
                 // },
-                delimiter: {
-                    class: AaldaDelimiter,
-                },
-                vitals : {
-                    class: AaldaKeyVital,
-                    inlineToolbar: true,
-                    config: {
-                        locale: this.config?.locale
-                    }
-                },
-                peros: {
-                    class: AaldaObservation,
-                    // inlineToolbar: true,
-                    config: {
-                        locale: this.config?.locale
-                    }
-                },
-                testReport: {
-                    class: AaldaTestReport,
-                    config: {
-                        locale: this.config?.locale,
-                        apiUrl: this.config?.api?.test || "http://localhost:8000/api/medicine"
-                    }
-                },
-                vaccination :{
-                    class: AaldaVacination,
-                    inlineToolbar: true,
-                    config: {
-                        locale: this.config?.locale,
-                        apiUrl: this.config?.api?.vaccination || "http://localhost:8000/api/medicine"
-                    }
-                },
-                antiParasitic :{
-                    class: AntiParasitic,
-                    inlineToolbar: true,
-                    config: {
-                        locale: this.config?.locale,
-                        apiUrl: this.config?.api?.medicine || "http://localhost:8000/api/medicine"
-                    }
-                }
+                
+                
             },
             data: {},
 
