@@ -170,10 +170,10 @@ class AaldaEditor {
                     }
                 },
 
-                medicine: {
-                    class: AaldaMedicine,
-                    inlineToolbar: true,
-                },
+                // medicine: {
+                //     class: AaldaMedicine,
+                //     inlineToolbar: true,
+                // },
                 delimiter: {
                     class: AaldaDelimiter,
                 },
