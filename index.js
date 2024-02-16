@@ -110,14 +110,14 @@ class AaldaEditor {
                     class: AaldaInternal,
                     config: {
                         locale: this.config?.locale,
-                        apiUrl: this.config?.api?.test || "http://localhost:8000/api/medicine"
+                        apiUrl: this.config?.api?.internal || "http://localhost:8000/api/medicine"
                     }
                 },
                 "Procedures": {
                     class: AaldaProcedure,
                     config: {
                         locale: this.config?.locale,
-                        apiUrl: this.config?.api?.test || "http://localhost:8000/api/medicine"
+                        apiUrl: this.config?.api?.procedure || "http://localhost:8000/api/medicine"
                     }
                 },
                 "Vaccination" :{
