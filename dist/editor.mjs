@@ -19644,7 +19644,7 @@ let Sb = class {
     var t;
     this.items = [];
     const { data: n, config: r, api: a, readOnly: l, block: u } = e;
-    this.title = a.i18n.t("Vitals"), this.api = a, this.block = u, this.readOnly = l || !0, this.config = r, this.data = {
+    this.title = a.i18n.t("Vitals"), this.api = a, this.block = u, this.readOnly = l || !1, this.config = r, this.data = {
       data: n && n.data && ((t = Object.keys(n.data)) == null ? void 0 : t.length) != 0 ? n.data : {},
       default: Ll.default
     }, this.options = {}, this.createOptions(), this.createItems(), this.table = null, setTimeout(() => {
