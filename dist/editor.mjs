@@ -19312,13 +19312,12 @@ let Fb = class {
   async fetchData(e = "", t) {
     const o = new Headers();
     o.append("Content-Type", "application/json");
-    const r = JSON.stringify({
-      search: e
-    }), a = {
-      method: "POST",
-      headers: o,
-      body: r
-    }, l = await fetch(this.config.apiUrl, a).then((p) => p.json()).catch((p) => console.log("error", p)), h = [{
+    const r = new URL(this.config.apiUrl);
+    r.searchParams.append("search", e);
+    const a = await fetch(r, {
+      method: "get",
+      headers: o
+    }).then((h) => h.json()).catch((h) => console.log("error", h)), l = [{
       label: this.api.i18n.t("Delete row"),
       icon: rh,
       hideIf: () => this.numberOfRows === 1,
@@ -19327,16 +19326,16 @@ let Fb = class {
         this.deleteRow(this.focusedCell.row), this.hideToolboxes();
       }
     }];
-    this.focusedCell.row - 1, l.data.map((p) => {
-      h.push({
-        label: p.medicine,
+    this.focusedCell.row - 1, a.data.map((h) => {
+      l.push({
+        label: h.medicine,
         icon: Rb,
         confirmationRequired: !1,
-        onClick: (g) => {
-          p.medicine && (t.value = p.medicine), this.hideToolboxes(), this.block.dispatchChange();
+        onClick: (p) => {
+          h.medicine && (t.value = h.medicine), this.hideToolboxes(), this.block.dispatchChange();
         }
       });
-    }), this.renderToolBox(h);
+    }), this.renderToolBox(l);
   }
   /**
    * Returns the rendered table wrapper
@@ -29043,13 +29042,12 @@ let by = class {
   async fetchData(e = "", t) {
     const o = new Headers();
     o.append("Content-Type", "application/json");
-    const r = JSON.stringify({
-      search: e
-    }), a = {
-      method: "POST",
-      headers: o,
-      body: r
-    }, l = await fetch(this.config.apiUrl, a).then((p) => p.json()).catch((p) => console.log("error", p)), h = [{
+    const r = new URL(this.config.apiUrl);
+    r.searchParams.append("search", e);
+    const a = await fetch(r, {
+      method: "get",
+      headers: o
+    }).then((h) => h.json()).catch((h) => console.log("error", h)), l = [{
       label: this.api.i18n.t("Delete row"),
       icon: Ch,
       hideIf: () => this.numberOfRows === 1,
@@ -29058,16 +29056,16 @@ let by = class {
         this.deleteRow(this.focusedCell.row), this.hideToolboxes();
       }
     }];
-    this.focusedCell.row - 1, l.data.map((p) => {
-      h.push({
-        label: p.medicine,
+    this.focusedCell.row - 1, a.data.map((h) => {
+      l.push({
+        label: h.medicine,
         icon: dy,
         confirmationRequired: !1,
-        onClick: (g) => {
-          p.medicine && (t.value = p.medicine), this.hideToolboxes(), this.block.dispatchChange();
+        onClick: (p) => {
+          h.medicine && (t.value = h.medicine), this.hideToolboxes(), this.block.dispatchChange();
         }
       });
-    }), this.renderToolBox(h);
+    }), this.renderToolBox(l);
   }
   /**
    * Returns the rendered table wrapper
@@ -36960,13 +36958,12 @@ class OC {
   async fetchData(e = "", t) {
     const o = new Headers();
     o.append("Content-Type", "application/json");
-    const r = JSON.stringify({
-      search: e
-    }), a = {
-      method: "POST",
-      headers: o,
-      body: r
-    }, l = await fetch(this.config.apiUrl, a).then((p) => p.json()).catch((p) => console.log("error", p)), h = [{
+    const r = new URL(this.config.apiUrl);
+    r.searchParams.append("search", e);
+    const a = await fetch(r, {
+      method: "get",
+      headers: o
+    }).then((h) => h.json()).catch((h) => console.log("error", h)), l = [{
       label: this.api.i18n.t("Delete row"),
       icon: Ih,
       hideIf: () => this.numberOfRows === 1,
@@ -36975,16 +36972,16 @@ class OC {
         this.deleteRow(this.focusedCell.row), this.hideToolboxes();
       }
     }];
-    this.focusedCell.row - 1, l.data.map((p) => {
-      h.push({
-        label: p.medicine,
+    this.focusedCell.row - 1, a.data.map((h) => {
+      l.push({
+        label: h.medicine,
         icon: TC,
         confirmationRequired: !1,
-        onClick: (g) => {
-          p.medicine && (t.value = p.medicine), this.hideToolboxes(), this.block.dispatchChange();
+        onClick: (p) => {
+          h.medicine && (t.value = h.medicine), this.hideToolboxes(), this.block.dispatchChange();
         }
       });
-    }), this.renderToolBox(h);
+    }), this.renderToolBox(l);
   }
   /**
    * Returns the rendered table wrapper
@@ -38376,13 +38373,12 @@ class UC {
   async fetchData(e = "", t) {
     const o = new Headers();
     o.append("Content-Type", "application/json");
-    const r = JSON.stringify({
-      search: e
-    }), a = {
-      method: "POST",
-      headers: o,
-      body: r
-    }, l = await fetch(this.config.apiUrl, a).then((p) => p.json()).catch((p) => console.log("error", p)), h = [{
+    const r = new URL(this.config.apiUrl);
+    r.searchParams.append("search", e);
+    const a = await fetch(r, {
+      method: "get",
+      headers: o
+    }).then((h) => h.json()).catch((h) => console.log("error", h)), l = [{
       label: this.api.i18n.t("Delete row"),
       icon: jh,
       hideIf: () => this.numberOfRows === 1,
@@ -38391,16 +38387,16 @@ class UC {
         this.deleteRow(this.focusedCell.row), this.hideToolboxes();
       }
     }];
-    this.focusedCell.row - 1, l.data.map((p) => {
-      h.push({
-        label: p.medicine,
+    this.focusedCell.row - 1, a.data.map((h) => {
+      l.push({
+        label: h.medicine,
         icon: PC,
         confirmationRequired: !1,
-        onClick: (g) => {
-          p.medicine && (t.value = p.medicine), this.hideToolboxes(), this.block.dispatchChange();
+        onClick: (p) => {
+          h.medicine && (t.value = h.medicine), this.hideToolboxes(), this.block.dispatchChange();
         }
       });
-    }), this.renderToolBox(h);
+    }), this.renderToolBox(l);
   }
   /**
    * Returns the rendered table wrapper
@@ -38969,7 +38965,7 @@ const qC = {
         heading: "Report",
         heading_jp: "予防接種医学",
         type: "search",
-        key: "report"
+        key: "name"
       },
       {
         heading: "Remarks",
@@ -39533,13 +39529,12 @@ class tS {
   async fetchData(e = "", t) {
     const o = new Headers();
     o.append("Content-Type", "application/json");
-    const r = JSON.stringify({
-      search: e
-    }), a = {
-      method: "POST",
-      headers: o,
-      body: r
-    }, l = await fetch(this.config.apiUrl, a).then((p) => p.json()).catch((p) => console.log("error", p)), h = [{
+    const r = new URL(this.config.apiUrl);
+    r.searchParams.append("search", e);
+    const a = await fetch(r, {
+      method: "get",
+      headers: o
+    }).then((h) => h.json()).catch((h) => console.log("error", h)), l = [{
       label: this.api.i18n.t("Delete row"),
       icon: qh,
       hideIf: () => this.numberOfRows === 1,
@@ -39548,16 +39543,16 @@ class tS {
         this.deleteRow(this.focusedCell.row), this.hideToolboxes();
       }
     }];
-    this.focusedCell.row - 1, l.data.map((p) => {
-      h.push({
-        label: p.medicine,
+    this.focusedCell.row - 1, a.data.map((h) => {
+      l.push({
+        label: h.medicine,
         icon: KC,
         confirmationRequired: !1,
-        onClick: (g) => {
-          p.medicine && (t.value = p.medicine), this.hideToolboxes(), this.block.dispatchChange();
+        onClick: (p) => {
+          h.medicine && (t.value = h.medicine), this.hideToolboxes(), this.block.dispatchChange();
         }
       });
-    }), this.renderToolBox(h);
+    }), this.renderToolBox(l);
   }
   /**
    * Returns the rendered table wrapper
